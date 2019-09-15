@@ -1,0 +1,38 @@
+Sub TotalStockVolume()
+
+    Dim Col  As Double
+    Dim TotalVolume As Double
+ 
+ 'Code to work in each worksheet
+ For Each ws In Worksheets
+
+        'Add Headers to all worksheets
+        ws.Cells(1, 9).Value = "Ticker"
+        ws.Cells(1, 10).Value = "Total Stock Volume"
+    
+        i = 2
+        ws.Cells(i, 9).Value = ws.Cells(i, 1).Value
+        
+        'Code to get to the last row
+        LastRow = Cells(Rows.Count, 1).End(xlUp).Row
+    
+        For j = 2 To LastRow
+
+        If ws.Cells(j, 1).Value = ws.Cells(i, 9) Then
+        TotalVolume = TotalVolume + ws.Cells(j, 7).Value
+        
+        Else: ws.Cells(i, 10).Value = TotalVolume
+        TotalVolume = ws.Cells(j, 7).Value
+        
+        i = i + 1
+        ws.Cells(i, 9).Value = ws.Cells(j, 1).Value
+        
+        End If
+     
+        Next j
+     
+     ws.Cells(i, 10).Value = TotalVolume
+    
+    Next ws
+
+End Sub
